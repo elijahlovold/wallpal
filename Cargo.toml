@@ -1,0 +1,16 @@
+[package]
+name = "wallpal"
+version = "0.1.0"
+edition = "2024"
+description = "Wallpaper -> 16-colour palette (OKLab regions, ramp + accents), wallust-colorscheme JSON out"
+
+[dependencies]
+# Only dependency. Decodes row by row, so a 4K still never sits in memory
+# whole, and benched faster than zune-png here (32 vs 39 ms on a 4K still).
+png = { version = "0.18", default-features = false }
+
+[profile.release]
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
